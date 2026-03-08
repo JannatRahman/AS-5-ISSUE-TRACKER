@@ -32,11 +32,13 @@ function displayCard(cards){
     console.log(card);
     const cardDiv = document.createElement("div");
     cardDiv.className = "m-10 flex flex-wrap gap-10";
+    const cardImage = card.status === "open" ? "/assets/Open-Status.png" : "/assets/Closed-Status.png"
     cardDiv.innerHTML = `
     
+
 <div class="card bg-white p-5 shadow-md w-80 space-y-3">
  <div class="flex justify-between ">
-   <img src="${card.status}">
+   <img src="${cardImage}">
    <h2 class="text-red-700 bg-red-200 text-lg rounded-lg px-6 cursor-pointer">${card.priority}</h2>
   </div>
 
