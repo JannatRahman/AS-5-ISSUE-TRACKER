@@ -1,5 +1,21 @@
 // MAIN SECTION CODES
+
+// const searchIssues = document.getElementById("issue-btn");
 const cardContainer = document.getElementById("card-container");
+const cardModalContainer = document.getElementById("card-modal-container");
+
+// document.getElementById("issue-btn").addEventListener("click", () => {
+//   const input = document.getElementById("input-search");
+//   const searchValue = input.value.trim().toLowerCase();
+//   console.log(searchValue);
+// });
+
+
+async function SearchCard() {
+const res = await fetch(" https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}");
+console.log(res);
+  
+}
 
 
 
@@ -25,7 +41,7 @@ function displayCard(cards){
   </div>
 
   <div class="">
-     <h2 class="text-lg font-bold">${card.title}</h2>
+     <h2 class="text-lg font-bold" onclick="openCardModal(${card.id})"> ${card.title}</h2>
      <p class="line-clamp-2">${card.description}</p> 
   </div>
 
@@ -51,6 +67,21 @@ function displayCard(cards){
     cardContainer.appendChild(cardDiv);
   });
 
+};
+
+async function openCardModal(cardId){
+console.log(cardId, "cardId");
+const res =await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications");
+
+
+// id: 1, title: 'Fix navigation menu on mobile devices', description: "The navigation menu doesn't collapse properly on m…ile devices. Need to fix the responsive behavior.", status: 'open', labels: Array(2), …}
+
+const data =await res.json();
+const cardDetails = data.data
+console.log(cardDetails, "data");
+  cardModalContainer.showModal();
+
 }
+
 // const date = new Date(issue.createdAt);  date.getDay(), date.getMonth()+1, date.getFullYear() 
 loadCard();
