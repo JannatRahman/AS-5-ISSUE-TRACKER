@@ -47,11 +47,11 @@
 
 <section>
   <div class=" bg-base-100 shadow-sm w-11/12 mx-auto m-10 p-4 space-x-3 ">
-    <button  id="tab-all" class="btn btn-primary">All</button>
+    <button  id="tab-all" onclick="switchTab('all')" class="btn btn-primary">All</button>
 
-    <button id="openSection" class="btn btn-outline ">Open</button>
+    <button id="tab-open" onclick="switchTab('open')" class="btn btn-outline ">Open</button>
 
-    <button  id="closedSection" class="btn btn-outline">Closed</button>
+    <button  id="tab-closed" onclick="switchTab('closed')" class="btn btn-outline">Closed</button>
   </div>
 </section>
 

@@ -2,26 +2,8 @@
 let currentTab ="all";
 const tabActive = ["bg-blue-500", "border-blue-600", "text-white"];
 const tabInactive = ["bg-transparent", "text-slate-700", "border-slate-200", "text-black"]
+let allCards = [];
 
-
-
-const openAndClosed = (id) => {
-  const openSection = document.getElementById("openStatus");
-  const closedSection = document.getElementById("closedStatus");
-
-  if (id === "open") {
-    openSection.classList.remove("hidden");
-    closedSection.classList.add("hidden");
-  } 
-  else if (id === "closed") {
-    openSection.classList.add("hidden");
-    closedSection.classList.remove("hidden");
-  } 
-  else if (id === "all") {
-    openSection.classList.remove("hidden");
-    closedSection.classList.remove("hidden");
-  }
-};
 
 
 const cardContainer = document.getElementById("card-container");
@@ -55,11 +37,49 @@ console.log(res);
 }
 async function loadCard() {
 showLoading();
+
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   const data = await res.json();
+
   hideLoading();
- displayCard(data.data);
+
+  allCards = data.data;
+ displayCard(allCards);
 };
+
+function switchTab(tab) {
+
+  currentTab = tab;
+
+  const tabs = ["all", "open", "closed"];
+
+  for (const t of tabs) {
+    const tabName = document.getElementById("tab-" + t);
+
+    if (t === tab) {
+      tabName.classList.remove(...tabInactive);
+      tabName.classList.add(...tabActive);
+    } else {
+      tabName.classList.remove(...tabActive);
+      tabName.classList.add(...tabInactive);
+    }
+  }
+
+  if (tab === "all") {
+    displayCard(allCards);
+  }
+
+  if (tab === "open") {
+    const openCards = allCards.filter(card => card.status === "open");
+    displayCard(openCards);
+  }
+
+  if (tab === "closed") {
+    const closedCards = allCards.filter(card => card.status === "closed");
+    displayCard(closedCards);
+  }
+
+}
 
 const levelColors = {
   high: "bg-red-200 text-red-700",
@@ -108,7 +128,7 @@ return `
 
 
     cardDiv.innerHTML = `
-<div class="card bg-white p-5 shadow-md w-80 space-y-3 border-t-4 ${card.status === "open" ? "border-green-700" : "closed" }">
+<div class="card bg-white p-5 shadow-md w-80 space-y-3 border-t-4 ${card.status === "open" ? "border-green-700" : "closed border-purple-700" }">
 
  <div class="flex justify-between ">
    <img src="${cardImage}" alt="status">
