@@ -3,29 +3,27 @@ let currentTab ="all";
 const tabActive = ["bg-blue-500", "border-blue-600", "text-white"];
 const tabInactive = ["bg-transparent", "text-slate-700", "border-slate-200", "text-black"]
 
-// SWITCHING-TAB
-function switchTab(tab) {
-  console.log(tab);
-  const tabs = ["all", "open", "closed"];
 
-  for(const t of tabs){
-     const tabName =  document.getElementById("tab-" +t );
 
-     if(t === tab) {
-      tabName.classList.remove(...tabInactive);
-      tabName.classList.add(...tabActive);
-     }else{
-      tabName.classList.remove(...tabActive);
-      tabName.classList.add(...tabInactive);
-     }
-     
+const openAndClosed = (id) => {
+  const openSection = document.getElementById("openStatus");
+  const closedSection = document.getElementById("closedStatus");
+
+  if (id === "open") {
+    openSection.classList.remove("hidden");
+    closedSection.classList.add("hidden");
   } 
-}
-switchTab(currentTab);
+  else if (id === "closed") {
+    openSection.classList.add("hidden");
+    closedSection.classList.remove("hidden");
+  } 
+  else if (id === "all") {
+    openSection.classList.remove("hidden");
+    closedSection.classList.remove("hidden");
+  }
+};
 
 
-
-// const searchIssues = document.getElementById("issue-btn");
 const cardContainer = document.getElementById("card-container");
 const cardModalContainer = document.getElementById("card-modal-container");
 const modalTitle = document.getElementById("modal-title");
@@ -87,7 +85,7 @@ function displayCard(cards){
 
     cardDiv.className = "m-10 flex flex-wrap gap-10";
 
-    const cardImage = card.status === "open" ? "/assets/Open-Status.png" : "/assets/Closed-Status.png";
+    const cardImage = card.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png";
 
     // priority badge
     const priorityBadge = card.priority ? `
@@ -110,7 +108,7 @@ return `
 
 
     cardDiv.innerHTML = `
-<div class="card bg-white p-5 shadow-md w-80 space-y-3 border-t-4 border-purple-500">
+<div class="card bg-white p-5 shadow-md w-80 space-y-3 border-t-4 ${card.status === "open" ? "border-green-700" : "closed" }">
 
  <div class="flex justify-between ">
    <img src="${cardImage}" alt="status">
@@ -137,7 +135,7 @@ return `
 
   <div class="divider"></div>
 
-  <div>
+  <div class="bg-gray-100 rounded-md p-3">
     <p>${card.author}</p>
     <p>${card.createdAt ? card.createdAt.split("T")[0] : "No Date"}</p>
   </div>
