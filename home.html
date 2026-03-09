@@ -40,9 +40,11 @@
 
 <section>
   <div class=" bg-base-100 shadow-sm w-11/12 mx-auto m-10 p-4 space-x-3">
-    <button id="all-btn" class="btn btn-primary">All</button>
-    <button id="open-btn" class="btn btn-outline">Open</button>
-    <button id="closed-btn" class="btn btn-outline">Closed</button>
+    <button onclick="switchTab('all')" id="tab-all" class="btn btn-primary">All</button>
+
+    <button  onclick="switchTab('open')" id="tab-open" class="btn btn-outline">Open</button>
+
+    <button  onclick="switchTab('closed')" id="tab-closed" class="btn btn-outline">Closed</button>
   </div>
 </section>
 
@@ -123,13 +125,37 @@
 <dialog id="card-modal-container" class="modal">
   <div class="modal-box space-y-5">
 
-<!-- // id: 1, title: 'Fix navigation menu on mobile devices', description: "The navigation menu doesn't collapse properly on m…ile devices. Need to fix the responsive behavior.", status: 'open', labels: Array(2), …} -->
+<!-- {id: 50, title: 'Create automated testing pipeline', description: 'Set up CI/CD pipeline with automated tests running on every commit and pull request.', status: 'open', labels: Array(2), …}
+assignee: 
+"test_tina"
+author: 
+"ci_cd_cindy"
+createdAt: 
+"2024-02-10T08:00:00Z"
+description: 
+"Set up CI/CD pipeline with automated tests running on every commit and pull request."
+id: 
+50labels: 
+(2) ['enhancement', 'help wanted']
+priority: 
+"high"
+status: 
+"open"
+title
+: 
+"Create automated testing pipeline"
+updatedAt
+: 
+"2024-02-10T08:00:00Z"
+[[Prototype]]
+: 
+Object -->
 
 
          <div class="items-center ">
            <h2 class="text-lg font-semibold mb-3" id="modal-title">Fix broken image uploads</h2>
            <div class="flex gap-5">
-            <p class="bg-green-700 text-white text-sm rounded-3xl p-3 " id="modal-id">Opened</p>
+            <p class="bg-green-700 text-white text-sm rounded-3xl p-3 " id="modal-status">Opened</p>
             <p class="text-4xl">.</p>
             <p>Opened by Fahim Ahmed</p>
             <p class="text-4xl ">.</p>

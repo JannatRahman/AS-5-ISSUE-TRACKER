@@ -1,4 +1,29 @@
 // MAIN SECTION CODES
+let currentTab ="all";
+const tabActive = ["bg-blue-500", "border-blue-600", "text-white"];
+
+const tabInactive = ["bg-transparent", "text-slate-700", "border-slate-200", "text-black"]
+
+
+function switchTab(tab) {
+  console.log(tab);
+  const tabs = ["all", "open", "closed"];
+
+  for(const t of tabs){
+     const tabName =  document.getElementById("tab-" +t );
+
+     if(t === tab) {
+      tabName.classList.remove(...tabInactive);
+      tabName.classList.add(...tabActive);
+     }else{
+      tabName.classList.remove(...tabActive);
+      tabName.classList.add(...tabInactive);
+     }
+     
+  } 
+}
+
+
 
 // const searchIssues = document.getElementById("issue-btn");
 const cardContainer = document.getElementById("card-container");
@@ -85,5 +110,24 @@ console.log(cardDetails, "data");
 
 }
 
+document
+.getElementById("issue-btn")
+.addEventListener("click", async () => {
+
+  const input = document.getElementById("input-search");
+
+  const searchText = input.value.trim();
+
+
+
+  const res = await fetch(
+  `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications`
+  );
+
+  const data = await res.json();
+
+  displayCard(data.data);
+
+});
 // const date = new Date(issue.createdAt);  date.getDay(), date.getMonth()+1, date.getFullYear() 
 loadCard();
