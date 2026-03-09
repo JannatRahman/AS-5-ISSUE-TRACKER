@@ -44,6 +44,8 @@ const loadingSpinner
 //   console.log(searchValue);
 // });
 
+
+
 function showLoading() {
   loadingSpinner.classList.remove("hidden");
   cardContainer.innerHTML = "";
@@ -137,6 +139,7 @@ modalCreatedAt.textContent = createdDate;
 
 }
 
+// SEARCH 
 document.getElementById("issue-btn")
 .addEventListener("click", async () => {
 
@@ -147,13 +150,14 @@ document.getElementById("issue-btn")
     alert("Please enter something to search");
     return;
    }
-
+showLoading();
+cardContainer.innerHTML = "";
   const res = await fetch(
   `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`
   );
 
   const data = await res.json();
-
+hideLoading();
   displayCard(data.data);
 
 });
