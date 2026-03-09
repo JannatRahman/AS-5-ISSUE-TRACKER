@@ -96,7 +96,10 @@ const tagsStyling = {
 };
 
 function displayCard(cards){
+
   cardContainer.innerHTML = "";
+  updateIssueCount(cards);
+  
   console.log(cards);
 
   cards.forEach((card) => {
@@ -164,6 +167,11 @@ return `
   });
 
 };
+
+function updateIssueCount(cards) {
+  const issueCount = document.getElementById("issue-count");
+  issueCount.textContent = cards.length;
+}
 
 async function openCardModal(cardId){
 console.log(cardId, "cardId");
