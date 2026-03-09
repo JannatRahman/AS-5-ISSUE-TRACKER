@@ -69,6 +69,8 @@ const levelColors = {
   low: "bg-gray-200 text-gray-700",
 };
 
+const status
+
 const tagsStyling = {
   documentation: { icon: "fa fa-facebook", style: "bg-purple-100 text-purple-700" },
   "good first issue": { icon: "fa-star", style: "bg-green-100 text-green-700" },
@@ -108,7 +110,7 @@ return `
 
 
     cardDiv.innerHTML = `
-<div class="card bg-white p-5 shadow-md w-80 space-y-3">
+<div class="card bg-white p-5 shadow-md w-80 space-y-3 border-t-4 border-purple-500">
 
  <div class="flex justify-between ">
    <img src="${cardImage}" alt="status">
@@ -170,39 +172,6 @@ modalCreatedAt.textContent = cardDetails.createdAt;
 modalCreatedAt.textContent = createdDate;
 
 }
-
-
-
-// function displayCard(cards) {
-//   cardContainer.innerHTML = "";
-//   cards.forEach((card) => {
-//     const cardDiv = document.createElement("div");
-//     cardDiv.className = "m-10 flex flex-wrap gap-10";
-    
-//     const cardImage = SearchCard
-
-// const html = `
-//     <p class=" px-3 py-1 rounded full text-sm font-semibold
-//     ${levelColors[apiData.priority]
-
-//     }">
-//     ${apiData.priority.toUpperCase()}
-//     </p>
-
-//     // tags
-//     <div class= "flex gap-2 mt-3"
-//     ${apiData.tags.map((tag) => {
-//     return `
-//   <button class="flex items-center gap-1 py-1 rounded-full text-xs font-medium ${tagsStyling[tag].style}">
-//   <i class= fa${tagsStyling[tag].icon}"></i>
-//   ${tag.toUpperCase()}
-//  </button> `;
-//   })
-//    .join("")}
-//   </div>`;
-// console.log(html);
-
-
 
 // SEARCH 
 document.getElementById("issue-btn")
