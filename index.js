@@ -1,10 +1,9 @@
 // MAIN SECTION CODES
 let currentTab ="all";
 const tabActive = ["bg-blue-500", "border-blue-600", "text-white"];
-
 const tabInactive = ["bg-transparent", "text-slate-700", "border-slate-200", "text-black"]
 
-
+// SWITCHING-TAB
 function switchTab(tab) {
   console.log(tab);
   const tabs = ["all", "open", "closed"];
@@ -22,12 +21,22 @@ function switchTab(tab) {
      
   } 
 }
+switchTab(currentTab);
 
 
 
 // const searchIssues = document.getElementById("issue-btn");
 const cardContainer = document.getElementById("card-container");
 const cardModalContainer = document.getElementById("card-modal-container");
+const modalTitle = document.getElementById("modal-title");
+const modalStatus = document.getElementById("modal-status");
+const modalAuthor = document.getElementById("modal-author");
+const modalCreatedAt = document.getElementById("modal-created-at");
+const modalDescription = document.getElementById("modal-description");
+const modalAssignee = document.getElementById("modal-assignee");
+const modalPriority = document.getElementById("modal-priority");
+const loadingSpinner 
+= document.getElementById("loading-spinner");
 
 // document.getElementById("issue-btn").addEventListener("click", () => {
 //   const input = document.getElementById("input-search");
@@ -35,22 +44,30 @@ const cardModalContainer = document.getElementById("card-modal-container");
 //   console.log(searchValue);
 // });
 
+function showLoading() {
+  loadingSpinner.classList.remove("hidden");
+  cardContainer.innerHTML = "";
+};
 
-async function SearchCard() {
-const res = await fetch(" https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}");
-console.log(res);
-  
+function hideLoading() {
+  loadingSpinner.classList.remove("hidden");
 }
 
+async function SearchCard() { 
+const res = await fetch(" https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}");
+console.log(res);
 
-
+}
 async function loadCard() {
+showLoading();
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   const data = await res.json();
+  hideLoading();
  displayCard(data.data);
 };
 
 function displayCard(cards){
+  cardContainer.innerHTML = "";
   console.log(cards);
 
   cards.forEach((card) => {
@@ -59,8 +76,6 @@ function displayCard(cards){
     cardDiv.className = "m-10 flex flex-wrap gap-10";
     const cardImage = card.status === "open" ? "/assets/Open-Status.png" : "/assets/Closed-Status.png"
     cardDiv.innerHTML = `
-    
-
 <div class="card bg-white p-5 shadow-md w-80 space-y-3">
  <div class="flex justify-between ">
    <img src="${cardImage}">
@@ -98,20 +113,31 @@ function displayCard(cards){
 
 async function openCardModal(cardId){
 console.log(cardId, "cardId");
-const res =await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications");
 
+const res =await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${cardId}`,);
 
-// id: 1, title: 'Fix navigation menu on mobile devices', description: "The navigation menu doesn't collapse properly on m…ile devices. Need to fix the responsive behavior.", status: 'open', labels: Array(2), …}
 
 const data =await res.json();
 const cardDetails = data.data
-console.log(cardDetails, "data");
-  cardModalContainer.showModal();
+// console.log(cardDetails, "data");
+
+const createdDate = cardDetails.createdAt ? cardDetails.createdAt.split ("T")[0] : "No Date";
+
+
+cardModalContainer.showModal();
+
+modalTitle.textContent = cardDetails.title;
+modalStatus.textContent = cardDetails.status;
+modalAuthor.textContent = cardDetails.author;
+modalAssignee.textContent = cardDetails.assignee;
+modalPriority.textContent = cardDetails.priority;
+modalDescription.textContent = cardDetails.description
+modalCreatedAt.textContent = cardDetails.createdAt;
+modalCreatedAt.textContent = createdDate;
 
 }
 
-document
-.getElementById("issue-btn")
+document.getElementById("issue-btn")
 .addEventListener("click", async () => {
 
   const input = document.getElementById("input-search");
@@ -129,5 +155,5 @@ document
   displayCard(data.data);
 
 });
-// const date = new Date(issue.createdAt);  date.getDay(), date.getMonth()+1, date.getFullYear() 
+
 loadCard();
