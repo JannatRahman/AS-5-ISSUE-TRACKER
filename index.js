@@ -69,7 +69,7 @@ const levelColors = {
   low: "bg-gray-200 text-gray-700",
 };
 
-const status
+
 
 const tagsStyling = {
   documentation: { icon: "fa fa-facebook", style: "bg-purple-100 text-purple-700" },
