@@ -141,13 +141,15 @@ document.getElementById("issue-btn")
 .addEventListener("click", async () => {
 
   const input = document.getElementById("input-search");
-
   const searchText = input.value.trim();
 
-
+   if(!searchText) {
+    alert("Please enter something to search");
+    return;
+   }
 
   const res = await fetch(
-  `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications`
+  `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`
   );
 
   const data = await res.json();
